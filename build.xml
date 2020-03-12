@@ -1,0 +1,36 @@
+<project>
+
+	<property name="jar" value="build/jar" />
+	
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes"/>
+    </target>
+
+    <target name="jar">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/HelloWorld.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Main-Class" value="Main"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run">
+        <java jar="build/jar/HelloWorld.jar" fork="true"/>
+    </target>
+	
+	<!--aggiunti dopo, vedi "ant copy"-->
+	<target name="copyJarAndDelete">
+		<!--comando per copiare file in altra cartella. "ant copy"-->
+	    <!-- <copy file="build/jar/HelloWorld.jar" todir="build/backupJar"/> -->
+		<copy file="${jar}/HelloWorld.jar" todir="build/backupJar"/>
+		<!--comando per cancellare file specificato. "ant delete"-->
+		<delete file="${jar}/HelloWorld.jar"/>
+	</target>
+
+</project>
